@@ -17,16 +17,16 @@ public class Astute4jApplication {
 ```
 
 2. Add the required configuration to your `application.yml` / `application.properties` file, choosing rather to use all namespaces or specific namespaces.
-```json
+```yml
 spring:
   application:
-    name: ${APPLICATION_NAME:astute4j}
+    name: ${APPLICATION_NAME:astute4j} # Required
   cloud:
     kubernetes:
       discovery:
-        all-namespaces: true
+        all-namespaces: true 
         namespaces:
           - namespace-a
           - namespace-b
 ```
-3. 
+3. `AstuteClient` bean should now be available in your application context.
