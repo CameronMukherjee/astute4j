@@ -1,0 +1,1 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=mukherjee.cameron.astute4j.AstuteClientAutoConfiguration

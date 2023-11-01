@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: ${APPLICATION_NAME:astute4j}
+  cloud:
+    kubernetes:
+      discovery:
+        all-namespaces: true
+#        namespaces:
+#          - namespace-a
+#          - namespace-b
