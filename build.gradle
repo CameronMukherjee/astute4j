@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'java-library'
+    id 'maven-publish'
     id 'org.springframework.boot' version '2.6.1'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
@@ -27,8 +29,7 @@ ext {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'org.springframework.cloud:spring-cloud-starter-kubernetes-client'
+    api 'org.springframework.cloud:spring-cloud-starter-kubernetes-client:2.0.3'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
@@ -38,6 +39,34 @@ dependencies {
 dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+publishing {
+    publications {
+        'astute4j'(MavenPublication) {
+            from(components.java)
+            groupId = project.group
+            artifactId = 'astute4j'
+            version = project.version
+
+            pom {
+                name = 'astute4j'
+                description = 'astute4j'
+                url = 'https://github.com/cameronmukherjee/astute4j'
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = 'astute4j'
+            url = uri('https://maven.pkg.github.com/cameronmukherjee/astute4j')
+            credentials {
+                username = System.getenv("GIT_USERNAME") ?: project.findProperty("GIT_USERNAME")
+                password = System.getenv("GIT_TOKEN") ?: project.findProperty("GIT_TOKEN")
+            }
+        }
     }
 }
 
